@@ -5,8 +5,6 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db')
 const colors = require('colors')
 
-const user = require('./routes/userRoutes');
-
 // Connect to DB
 connectDB()
 const app = express();
@@ -21,7 +19,9 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use('/api/v1/users', user);
+app.use('/api/v1/users', require('./routes/userRoutes'))
+app.use('/api/v1/ticket', require('./routes/ticketRoutes'))
+
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`You are listening on port ${PORT}`));
